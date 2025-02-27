@@ -36,8 +36,8 @@ The demonstration uses a self-signed certificate generated on each Nexus Switch 
     openssl req -x509 -newkey rsa:2048 -keyout grpc_selfsigned2048.key -out grpc_selfsigned2048.pem -days 365 -nodes
     ```
 
-    > [!NOTE]
-    > Once ran the openssl wizard will run to create the certificate complete the answers that meet your requirements. The following is an example of the form.
+> [!NOTE]
+> Once ran the openssl wizard will run to generate the certificate request, complete the answers that meet your requirements. The following is an ***example*** of the form.
     
     ```
     ......................................+++++
@@ -59,7 +59,7 @@ The demonstration uses a self-signed certificate generated on each Nexus Switch 
     Common Name (e.g. server FQDN or YOUR name) []:
     Email Address []:
     ```
-     
+
 4. Generate the certificate with the created request.
    ```
    openssl pkcs12 -export -out grpc_selfsign2048.pfx -inkey grpc_selfsigned2048.key -in grpc_selfsigned2048.pem -certfile grpc_selfsigned2048.pem -password pass:C1sco123!
