@@ -38,26 +38,28 @@ The demonstration uses a self-signed certificate generated on each Nexus Switch 
 
     > [!NOTE]
     > Once ran the openssl wizard will run to create the certificate complete the answers that meet your requirements. The following is an example of the form.
-    > ```
-    > ......................................+++++
-    > ....+++++
-    > writing new private key to 'grpc_selfsigned2048.key'
-    > -----
-    > You are about to be asked to enter information that will be incorporated
-    > into your certificate request.
-    > What you are about to enter is what is called a Distinguished Name or a DN.
-    > There are quite a few fields but you can leave some blank
-    > For some fields there will be a default value,
-    > If you enter '.', the field will be left blank.
-    > -----
-    > Country Name (2 letter code) [AU]:
-    > State or Province Name (full name) [Some-State]:
-    > Locality Name (eg, city) []:
-    > Organization Name (eg, company) [Internet Widgits Pty Ltd]:
-    > Organizational Unit Name (eg, section) []:
-    > Common Name (e.g. server FQDN or YOUR name) []:
-    > Email Address []:
-    > ``` 
+    
+    ```
+    ......................................+++++
+    ....+++++
+    writing new private key to 'grpc_selfsigned2048.key'
+    -----
+    You are about to be asked to enter information that will be incorporated
+    into your certificate request.
+    What you are about to enter is what is called a Distinguished Name or a DN.
+    There are quite a few fields but you can leave some blank
+    For some fields there will be a default value,
+    If you enter '.', the field will be left blank.
+    -----
+    Country Name (2 letter code) [AU]:
+    State or Province Name (full name) [Some-State]:
+    Locality Name (eg, city) []:
+    Organization Name (eg, company) [Internet Widgits Pty Ltd]:
+    Organizational Unit Name (eg, section) []:
+    Common Name (e.g. server FQDN or YOUR name) []:
+    Email Address []:
+    ```
+     
 4. Generate the certificate with the created request.
    ```
    openssl pkcs12 -export -out grpc_selfsign2048.pfx -inkey grpc_selfsigned2048.key -in grpc_selfsigned2048.pem -certfile grpc_selfsigned2048.pem -password pass:C1sco123!
