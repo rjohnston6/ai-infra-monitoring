@@ -71,6 +71,37 @@ The demonstration uses a self-signed certificate generated on each Nexus Switch 
    ```
    exit
    ```
+#### Configure the gRPC
+1. Enable the grpc feature
+   ```
+   feature grpc
+   ```
+2. Configure the gRPC to use the approprate VRF for communication with telegraf collector. This is not required if using the out-of-band management interface `mgmt0`.
+   ```
+   grpc use-vrf default
+   ```
+3. Configure the trustpoint using previously created certificate
+   ```
+   crypto ca trustpoint grpc_trustpoint
+    crypto ca import grpc_trustpoint pkcs12 grpc_selfsign2048.pfx C1sco123!
+   ```
+4. Associate the trustpoint with the gRPC
+   ```
+   grpc certificate grpc_trustpoint
+   ```
+
+#### Enable Open Config support on Nexus 9000
+To use open-config sensor paths the following feature is required.
+```
+feature openconfig
+```
+
+#### Save Configurations
+Once above configurations are complete save the configurations on each Nexus device with `copy run start`. 
+
+Additionally, if using self-signed certificates as outlined above the certificate will need to be exported and saved locally to allow the Telegraf instance to securely connect to the remote switches. A empty `trusted_certs.pem` file is included in the repo that each certificate can be saved in. For multiple devices save all certificates in the file creating a certificate chain.
+
+
 <!-- Roadmap -->
 ## Roadmap
 [ ] Add example for dial-out configuration 
