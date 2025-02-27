@@ -38,8 +38,7 @@ The demonstration uses a self-signed certificate generated on each Nexus Switch 
 
 > [!NOTE]
 > Once ran the openssl wizard will run to generate the certificate request, complete the answers that meet your requirements. The following is an ***example*** of the form.
-    
-    ```
+```
     ......................................+++++
     ....+++++
     writing new private key to 'grpc_selfsigned2048.key'
@@ -58,7 +57,7 @@ The demonstration uses a self-signed certificate generated on each Nexus Switch 
     Organizational Unit Name (eg, section) []:
     Common Name (e.g. server FQDN or YOUR name) []:
     Email Address []:
-    ```
+```
 
 4. Generate the certificate with the created request.
    ```
