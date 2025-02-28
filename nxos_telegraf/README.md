@@ -101,6 +101,15 @@ Once above configurations are complete save the configurations on each Nexus dev
 
 Additionally, if using self-signed certificates as outlined above the certificate will need to be exported and saved locally to allow the Telegraf instance to securely connect to the remote switches. A empty `trusted_certs.pem` file is included in the repo that each certificate can be saved in. For multiple devices save all certificates in the file creating a certificate chain.
 
+### Configure Telegraf
+Telegraf is an open-source server agent used for collecting metrics. In this scenario the official Telegraf container is used to simplify the deployment of the collector. A single container is used to collect the telemetry from the switchs and export the data to a InfluxDB instance.
+
+> [!NOTE]
+> The below instructions uses a compose file to deploy the container, the information can be added to the larger compose file used in the base_tig_stack directory in the root of the project if wanting to run on the same host with the InfluxDB and Grafana container. Instructions for consolidation are not included.
+
+#### Configure Telegraf Configuration File
+The following steps are needed to adjust the Telegraf configuration file `telegraf.conf` included in the directory.
+
 
 <!-- Roadmap -->
 ## Roadmap
