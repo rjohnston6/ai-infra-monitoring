@@ -115,12 +115,12 @@ To simplify some of the configurations edit the `telegraf.env` file included. Du
 The following are the variables defined the defaults.
 
 | Variable | Default | Usage | Update Required | 
-|----------|---------|-------|-----------------|
-| DOCKER_TELEGRAF_HOSTNAME | nxos-collector | Hostname used for the Telegraf Container | [ ] |
-| DOCKER_INFLUXDB_URL | | IP/FQDN of Remote INFLUXDB Server Instance | [X] |
-| DOCKER_INFLUXDB_INIT_ORG | myaiorg | InfluxDB Orginization to send data to | [ ] |
-| DOCKER_INFLUXDB_INIT_BUCKET | influx | InfluxDB Bucket used to store data | [ ] |
-| DOCKER_INFLUXDB_INIT_ADMIN_TOKEN | supersecuretoken | Token to access InfluxDB | [x] |
+|----------| :---: |-------| :---: |
+| DOCKER_TELEGRAF_HOSTNAME | nxos-collector | Hostname used for the Telegraf Container |  |
+| DOCKER_INFLUXDB_URL | | IP/FQDN of Remote INFLUXDB Server Instance | :white_check_mark: |
+| DOCKER_INFLUXDB_INIT_ORG | myaiorg | InfluxDB Orginization to send data to |  |
+| DOCKER_INFLUXDB_INIT_BUCKET | influx | InfluxDB Bucket used to store data |  |
+| DOCKER_INFLUXDB_INIT_ADMIN_TOKEN | supersecuretoken | Token to access InfluxDB | :white_check_mark: |
 
 #### Additional Telegraf Configurations
 To complete the configurations of the Telegraf configuration file the following tasks are completed directly in the `telegraf.conf` file.
