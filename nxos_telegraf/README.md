@@ -153,7 +153,7 @@ Once the container is up streamed telemetry from the Nexus switches will be sent
 
 <!-- Roadmap -->
 ## Roadmap
-[ ] Add example for dial-out configuration 
-[ ] Add Verification images
+- [ ] Add example for dial-out configuration 
+- [ ] Add Verification images
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
