@@ -1,5 +1,4 @@
 <!-- About Project -->
-# 🚧 WORK IN PROGRESS 🚧
 # Configuring Nexus 9000 and Telegraf for Telemetry Collection
 
 The configurations included provide an example configuration and steps to setup a telegraf collector to recieve streaming telemetry from remote Cisco Nexus 9000 switches. 
