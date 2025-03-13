@@ -110,9 +110,51 @@ Telegraf is an open-source server agent used for collecting metrics. In this sce
 #### Configure Telegraf Configuration File
 The following steps are needed to adjust the Telegraf configuration file `telegraf.conf` included in the directory.
 
+##### Step 1: Update Environment Variables
+To simplify some of the configurations edit the `telegraf.env` file included. During deployment of the `compose.yaml` this will ease the updating of some of the configurations used.
+
+The following are the variables defined the defaults.
+
+| Variable | Default | Usage | Update Required | 
+|----------|---------|-------|-----------------|
+| DOCKER_TELEGRAF_HOSTNAME | nxos-collector | Hostname used for the Telegraf Container | [ ] |
+| DOCKER_INFLUXDB_URL | | IP/FQDN of Remote INFLUXDB Server Instance | [X] |
+| DOCKER_INFLUXDB_INIT_ORG | myaiorg | InfluxDB Orginization to send data to | [ ] |
+| DOCKER_INFLUXDB_INIT_BUCKET | influx | InfluxDB Bucket used to store data | [ ] |
+| DOCKER_INFLUXDB_INIT_ADMIN_TOKEN | supersecuretoken | Token to access InfluxDB | [x] |
+
+#### Additional Telegraf Configurations
+To complete the configurations of the Telegraf configuration file the following tasks are completed directly in the `telegraf.conf` file.
+
+1. Locate the `[[inputs.gnmi]]` section with in the configuration file.
+2. Update the `addresses = [""]` string. This is a list of the ip addresses for the Nexus switches that will be streaming the telemetry date, ensure to include the port used to connect to the gNMI service on the switches. An example configuration for 2 switches would be as follows:
+    ```
+    addresses = ["10.1.1.10:50051", "10.1.1.11:50051"]
+    ```
+3. Configure the `username` and `password` to authenticate to the remote switches.
+4. Locate the `[[inputs.gnmi.subscription]]` section in the configuration file. This is the configuration to configure the specific sensor path for telemetry subscription on the remote switches. A single sensor path is included if additional sensor paths are needed add additional `[[inputs.gnmi.subscriptions]]` sections.
+
+### Deploy Telegraf Container
+Once the `telegraf.env` and `telegraf.conf` files are updated and the Nexus switches are provisioned for dial-in subscription and an InfluxDB instance is up and awaiting data the contianer can be deployed.
+
+Use the compose file to deploy the container simple execute the appropriate command depending on the use of Docker or Podman. 
+
+**Docker**
+``` bash
+docker compose up -d compose.yaml
+```
+
+**Podman**
+``` bash
+podman compose up -d compose.yaml
+```
+
+## Conclusion
+Once the container is up streamed telemetry from the Nexus switches will be sent to the InfluxDB Organization and Bucket identified in the configuration files. Using the Explorer tools in the InfluxDB the data can be viewed and filters created to assist in dashboarding.
 
 <!-- Roadmap -->
 ## Roadmap
 [ ] Add example for dial-out configuration 
+[ ] Add Verification images
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->

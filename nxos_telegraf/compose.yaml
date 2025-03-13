@@ -1,0 +1,13 @@
+services:
+    telegraf:
+        image: docker.io/library/telegraf
+        container_name: nx_telegraf
+        restart: always
+        privileged: true
+        env_file:
+            - telegraf.env
+        volumes:
+            - ./telegraf.conf:/etc/telegraf/telegraf.conf:ro
+            - ./trusted_certs.pem:/etc/telegraf/trusted_certs.pem:ro
+        ports:
+            - 57000:57000
