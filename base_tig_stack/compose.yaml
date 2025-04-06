@@ -1,4 +1,5 @@
 services:
+    # Optional Telegraf Container can comment out or remove if desired
     telegraf:
         image: telegraf
         container_name: telegraf
@@ -8,7 +9,6 @@ services:
             - influxv2.env
         volumes:
             - ./telegraf.conf:/etc/telegraf/telegraf.conf:ro
-            # - /var/run/docker.sock:/var/run/docker.sock
         depends_on:
             - influxdb
         ports:

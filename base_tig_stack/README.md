@@ -1,9 +1,60 @@
 <!-- About Project -->
 # 🚧 WORK IN PROGRESS 🚧
+# Deploy a Basic TIG Stack for AI Monitoring
+
+The configurations included provide an example configuration and steps to setup a basic Telegraf, Grafana and Influx (TIG) stack. 
+
+This TIG stack can be used to collect statistics for a number of use cases, the scenario described below is with a single Influx bucket and used to showcase statistics gathered from a pair of compute hosts used with Nvidia GPU's highlighting generative AI use cases. 
+
+The telegraf container deployed as part of the task is configured to gather container statistics for verification, it can be removed from the compose file if desired. The `telegraf.conf` could be altered to also collect stats from other sources if preferred. In the example scenario refer to the directory [nxos_telegraf](../nxos_telegraf/) in the root repo for a telegraf collector for recieving streaming telemetry from a Nexus N9300.
 
 <!-- Getting Started -->
-For detailed configuration for deploying each component refer to `README.md` in each directory for **important** information.
-<!-- Roadmap -->
+## Getting Started
+To get started it is assumed that the root project has been cloned or downloaded to a local development server or workstation. The following instructions only include the details required to configure the TIG stack.
 
+### Requirements
+
+No specific prerequisites are needed to deploy the base TIG stack.
+
+##### Step 1: Update Environment Variables
+Prior to deploying the TIG stack with the included `compose.yaml` review and configure the `influxv2.env` file. The file includes environment variables that will be used to configure the inital setup of the InfluxDB container instance and will also be leveraged on to configure the Telegraf container to be able to export data to an initial InfluxDB bucket.
+
+| Variable | Default Value | Usage | Update Required |
+|----------| :---: |-------| :---: |
+| DOCKER_INFLUXDB_INIT_MODE | setup | No change required. Used to Setup InfluxDB on deploy |  |
+| DOCKER_INFLUXDB_INIT_USERNAME | admin | The inital administrator user to be created |  |
+| DOCKER_INFLUXDB_INIT_PASSWORD | supersecurepassword | The inital adminstrator password | :white_check_mark: |
+| DOCKER_INFLUXDB_INIT_ORG | ai-visibility | InfluxDBv2 Inital Organization | |
+| DOCKER_INFLUXDB_INIT_BUCKET | ai-visibility | Initial InfluxDBv2 Bucket to be created | |
+| DOCKER_INFLUXDB_INIT_ADMIN_TOKEN | supersecuretoken | Token for admin user, used by Telegraf to authenticate and export data | :white_check_mark: |
+
+### Deploy TIG Stack
+Once the `influxv2.env` is updated the TIG stack can be deployed using the `compose.yaml` file.
+
+Use the compose file to deploy the container simple execute the appropriate command depending on the use of Docker or Podman. 
+
+**Docker**
+``` bash
+docker compose up -d compose.yaml
+```
+
+**Podman**
+``` bash
+podman compose up -d compose.yaml
+```
+
+## Additional InfluxDB Configurations
+> [!NOTE]
+> It is strongly recommended to complete the following configurations. They are optional during basic testing but if collecting stats for more then 24 hours the buckets may fill disk space causing services to become unavailable.
+
+***🚧 WORK IN PROGRESS 🚧***
+
+## Conclusion
+
+
+<!-- Roadmap -->
+## Roadmap
+- [ ] 
+- [ ] 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
