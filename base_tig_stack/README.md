@@ -16,7 +16,7 @@ To get started it is assumed that the root project has been cloned or downloaded
 
 No specific prerequisites are needed to deploy the base TIG stack.
 
-##### Step 1: Update Environment Variables
+#### Step 1: Update Environment Variables
 Prior to deploying the TIG stack with the included `compose.yaml` review and configure the `influxv2.env` file. The file includes environment variables that will be used to configure the inital setup of the InfluxDB container instance and will also be leveraged on to configure the Telegraf container to be able to export data to an initial InfluxDB bucket.
 
 | Variable | Default Value | Usage | Update Required |
@@ -28,6 +28,15 @@ Prior to deploying the TIG stack with the included `compose.yaml` review and con
 | DOCKER_INFLUXDB_INIT_BUCKET | ai-visibility | Initial InfluxDBv2 Bucket to be created | |
 | DOCKER_INFLUXDB_INIT_ADMIN_TOKEN | supersecuretoken | Token for admin user, used by Telegraf to authenticate and export data | :white_check_mark: |
 
+#### Step 2: Configure Grafana Variables
+Grafana is configured using the `grafana.env` file to set the environment variable for initalizing the Grafana container. The following should be reviewed updated appropriately.
+
+| Variable | Default Value | Usage | Update Required |
+|----------| :---: |-------| :---: |
+| GF_SECURITY_ADMIN_USER | admin | The inital administrator account to be created | |
+| GF_SECURITY_ADMIN_PASSWORD | admin | The initial administrator password | :white_check_mark: |
+| GF_INSTALL_PLUGINS| | Plugins to be installed during deployment | |
+
 ### Deploy TIG Stack
 Once the `influxv2.env` is updated the TIG stack can be deployed using the `compose.yaml` file.
 
@@ -35,13 +44,27 @@ Use the compose file to deploy the container simple execute the appropriate comm
 
 **Docker**
 ``` bash
-docker compose up -d compose.yaml
+docker compose -f compose.yaml up -d
 ```
 
 **Podman**
 ``` bash
 podman compose up -d compose.yaml
 ```
+
+#### TIG Stack Container Verification
+Once the compose file is deployed verify the containers are up and running using `docker ps`. The following is an example output showing the 3 deployed containers and the ports they are listening on.
+
+```bash
+CONTAINER ID   IMAGE                    COMMAND                  CREATED              STATUS              PORTS                                                                       NAMES
+26f235e1503c   telegraf                 "/entrypoint.sh tele…"   About a minute ago   Up About a minute   8092/udp, 8125/udp, 8094/tcp, 0.0.0.0:8125->8125/tcp, [::]:8125->8125/tcp   telegraf
+e6e0ddf03136   grafana/grafana          "/run.sh"                About a minute ago   Up About a minute   0.0.0.0:3000->3000/tcp, [::]:3000->3000/tcp                                 grafana-server
+1ac98ed98682   influxdb:2.7.10-alpine   "/entrypoint.sh infl…"   About a minute ago   Up About a minute   0.0.0.0:8086->8086/tcp, [::]:8086->8086/tcp                                 influxdb
+```
+
+From the output InfluxDB is accessible using http://<host_ip>:8086 and Grafana is accessible using http://<host_ip>:3000.
+
+
 
 ## Additional InfluxDB Configurations
 > [!NOTE]
