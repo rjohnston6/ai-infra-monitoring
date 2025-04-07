@@ -37,7 +37,7 @@ Grafana is configured using the `grafana.env` file to set the environment variab
 | GF_SECURITY_ADMIN_PASSWORD | admin | The initial administrator password | :white_check_mark: |
 | GF_INSTALL_PLUGINS| | Plugins to be installed during deployment | |
 
-### Deploy TIG Stack
+### Step 3: Deploy TIG Stack
 Once the `influxv2.env` is updated the TIG stack can be deployed using the `compose.yaml` file.
 
 Use the compose file to deploy the container simple execute the appropriate command depending on the use of Docker or Podman. 
@@ -49,10 +49,10 @@ docker compose -f compose.yaml up -d
 
 **Podman**
 ``` bash
-podman compose up -d compose.yaml
+podman compose -f compose.yaml up -d
 ```
 
-#### TIG Stack Container Verification
+#### Step 5: TIG Stack Container Verification
 Once the compose file is deployed verify the containers are up and running using `docker ps`. The following is an example output showing the 3 deployed containers and the ports they are listening on.
 
 ```bash
@@ -64,16 +64,40 @@ e6e0ddf03136   grafana/grafana          "/run.sh"                About a minute 
 
 From the output InfluxDB is accessible using http://<host_ip>:8086 and Grafana is accessible using http://<host_ip>:3000.
 
-
-
 ## Additional InfluxDB Configurations
 > [!NOTE]
 > It is strongly recommended to complete the following configurations. They are optional during basic testing but if collecting stats for more then 24 hours the buckets may fill disk space causing services to become unavailable.
 
-***🚧 WORK IN PROGRESS 🚧***
+The inital bucket created during the inital `docker compose up` sets up the retention policy for indefinite, which will collect and store data with out any deletion. As this is a demonstration configuration this retention policies are inefficient and should be changed. Complete the following to update the retention policy for the inital bucket created.
+
+1. Connect to a bash session on the InfluxDB container
+   ```bash
+   docker exec -it influxdb /bin/bash
+   ```
+
+2. To list the currently configured buckets use the `influx bucket list` command.
+    ```bash
+    influx bucket list
+    ```
+    Example output:
+    ```bash
+    aa428a7505fb:/# influx bucket list
+   ID                      Name            Retention       Shard group duration    Organization ID         Schema Type
+   f1db572dcc180aaa        _monitoring     168h0m0s        24h0m0s                 b1ef1db42216d126        implicit
+   ae3197d074c0cc52        _tasks          72h0m0s         24h0m0s                 b1ef1db42216d126        implicit
+   0a4ae682218faf76        ai-visibility   infinite        168h0m0s                b1ef1db42216d126        implicit
+   ```
+
+3. Update the retention period and shard-group-duration for the initial bucket, using the example configurations the bucket is "ai-visibility". To make the change use the bucket id provided in the previous step, with the following command.
+
+   ```bash
+   influx bucket update -i 0a4ae682218faf76 -r 48h --shard-group-duration 1h
+   ```
+
+For details on InfluxDBv2 Retention and Shard Group Durations refer to the InfluxDBv2 documentation for [Data retention in InfluxDB](https://docs.influxdata.com/influxdb/v2/reference/internals/data-retention/#:~:text=The%20InfluxDB%20retention%20enforcement%20service,%2Dcheck%2Dinterval%20configuration%20option.)
 
 ## Conclusion
-
+At this point a basic TIG stack is configured and ready to accept data, all data will be written to a single bucket in InfluxDB. As an Alternative different sources can be written to different buckets to manage data more efficiently.
 
 <!-- Roadmap -->
 ## Roadmap
