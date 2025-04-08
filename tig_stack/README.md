@@ -88,7 +88,7 @@ The inital bucket created during the inital `docker compose up` sets up the rete
    docker exec influxdb influx bucket update -i 0a4ae682218faf76 -r 48h --shard-group-duration 1h
    ```
 
-For details on InfluxDBv2 Retention and Shard Group Durations refer to the InfluxDBv2 documentation for [Data retention in InfluxDB](https://docs.influxdata.com/influxdb/v2/reference/internals/data-retention/#:~:text=The%20InfluxDB%20retention%20enforcement%20service,%2Dcheck%2Dinterval%20configuration%20option.)
+For details on InfluxDBv2 Retention and Shard Group Durations refer to the InfluxDBv2 documentation for [Data retention in InfluxDB][1]
 
 ## Conclusion
 At this point a basic TIG stack is configured and ready to accept data, all data will be written to a single bucket in InfluxDB. As an Alternative different sources can be written to different buckets to manage data more efficiently.
@@ -99,3 +99,4 @@ At this point a basic TIG stack is configured and ready to accept data, all data
 - [ ] 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
+[1]: https://docs.influxdata.com/influxdb/v2/reference/internals/data-retention/#:~:text=The%20InfluxDB%20retention%20enforcement%20service,%2Dcheck%2Dinterval%20configuration%20option.
