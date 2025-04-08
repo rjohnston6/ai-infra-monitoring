@@ -127,7 +127,7 @@ To complete the configurations of the Telegraf configuration file the following 
 
 1. Locate the `[[inputs.gnmi]]` section with in the configuration file.
 2. Update the `addresses = [""]` string. This is a list of the ip addresses for the Nexus switches that will be streaming the telemetry date, ensure to include the port used to connect to the gNMI service on the switches. An example configuration for 2 switches would be as follows:
-    ```TOML
+    ```toml
     [[inputs.gnmi]]
      addresses = ["10.1.1.10:50051", "10.1.1.11:50051"]
     ```
