@@ -33,10 +33,25 @@ To complete the setup and start visualizing data in Grafana the InfluxDBv2 data 
 4. Click `Save & Test` to save and confirm connectivity.
 
 ## Create Grafana Dashboards
+
+> [!IMPORTANT]
+> It is critical that all devices and servers in the setup source time from an NTP server. If not dashboards will show inaccurately timed data
+
 An example dashboard is provided to provide a starting point to visualize various data points from the data collected and stored in the InfluxDBv2 instance.
 ![Example Dashboard Screenshot][5]
 
-Some modifications are required to the dashboard to fully utilize and visualize the date. Specifically the configurations for `Switch Interface Utilization` panel as the configuration needs to be configured for the appropriate switches and interfaces. 
+Some modifications are required to the dashboard to fully utilize and visualize the date. Specifically the configurations for `Switch Interface Utilization` panel as the configuration needs to be configured for the appropriate switches and interfaces. Use the following to update.
+
+1. Click the 3 Dots in the Right of the `Switch Interface Utilization` pane and select `edit`.
+2. In the queries section edit the following filter to match the switch to monitor.
+   ```flux
+   |> filter(fn: (r) => r["source"] == "198.18.0.40")
+   ```
+3. Edit the filter for the interfaces, add additional interfaces using the or operator.
+   ```flux
+   > filter(fn: (r) => r["name"] == "eth1/1" or r["name"] == "eth1/2")
+   ```
+4. Save Dashboard.
 
 <!-- Roadmap -->
 
