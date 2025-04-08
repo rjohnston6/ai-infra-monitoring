@@ -127,8 +127,9 @@ To complete the configurations of the Telegraf configuration file the following 
 
 1. Locate the `[[inputs.gnmi]]` section with in the configuration file.
 2. Update the `addresses = [""]` string. This is a list of the ip addresses for the Nexus switches that will be streaming the telemetry date, ensure to include the port used to connect to the gNMI service on the switches. An example configuration for 2 switches would be as follows:
-    ```
-    addresses = ["10.1.1.10:50051", "10.1.1.11:50051"]
+    ```TOML
+    [[inputs.gnmi]]
+     addresses = ["10.1.1.10:50051", "10.1.1.11:50051"]
     ```
 3. Configure the `username` and `password` to authenticate to the remote switches.
 4. Locate the `[[inputs.gnmi.subscription]]` section in the configuration file. This is the configuration to configure the specific sensor path for telemetry subscription on the remote switches. A single sensor path is included if additional sensor paths are needed add additional `[[inputs.gnmi.subscriptions]]` sections.
