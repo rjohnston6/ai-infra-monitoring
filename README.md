@@ -1,5 +1,6 @@
 <!-- About Project -->
-# 🚧 WORK IN PROGRESS 🚧
+# AI Infrastructure Monitoring Demo
+With the rise of AI workloads being able to monitor the infrastructure is critical to delivering reliable service. The following is an example for learning how to collect data using Telegraf and modeling the data in a Grafana dashboard. 
 
 <!-- Getting Started -->
 ## Getting Started
