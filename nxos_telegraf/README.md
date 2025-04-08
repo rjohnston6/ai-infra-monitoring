@@ -132,6 +132,7 @@ To complete the configurations of the Telegraf configuration file the following 
     ```
 3. Configure the `username` and `password` to authenticate to the remote switches.
 4. Locate the `[[inputs.gnmi.subscription]]` section in the configuration file. This is the configuration to configure the specific sensor path for telemetry subscription on the remote switches. A single sensor path is included if additional sensor paths are needed add additional `[[inputs.gnmi.subscriptions]]` sections.
+5. Add the self-signed certificate created on the switch in the `trusted_certs.pem` file included. If multiple switches add each certificate.
 
 ### Deploy Telegraf Container
 Once the `telegraf.env` and `telegraf.conf` files are updated and the Nexus switches are provisioned for dial-in subscription and an InfluxDB instance is up and awaiting data the contianer can be deployed.
@@ -140,12 +141,12 @@ Use the compose file to deploy the container simple execute the appropriate comm
 
 **Docker**
 ``` bash
-docker compose up -d compose.yaml
+docker compose -f compose.yaml up -d
 ```
 
 **Podman**
 ``` bash
-podman compose up -d compose.yaml
+podman compose -f compose.yaml up -d
 ```
 
 ## Conclusion
