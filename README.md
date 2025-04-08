@@ -51,7 +51,8 @@ Some modifications are required to the dashboard to fully utilize and visualize 
    ```flux
    > filter(fn: (r) => r["name"] == "eth1/1" or r["name"] == "eth1/2")
    ```
-4. Save Dashboard.
+4. Repeat for both queries listed.
+5. Save Dashboard.
 
 <!-- Roadmap -->
 
